@@ -1,3 +1,5 @@
+<img src="assets/omega-to-open-logo.png" align="right" width="150" alt="Logo">
+
 # omega-to-openlabel
 
 Converter utilities to export OmegaPRIME recordings into ASAM OpenLABEL format.
