@@ -1,10 +1,10 @@
 # omega-to-openlabel
 
-Converter utilities to export OmegaPRIME recordings into ASAM OpenLABEL (VCD) format.
+Converter utilities to export OmegaPRIME recordings into ASAM OpenLABEL format.
 
 ## Overview
 - Input: OmegaPRIME recording (ASAM OpenDRIVE map + ASAM OSI moving objects/trajectories)
-- Output: ASAM OpenLABEL VCD file (JSON) with:
+- Output: ASAM OpenLABEL file (JSON) with:
   - Coordinate systems (`scene`/odom and `vehicle-iso8855`)
   - Streams metadata needed for WebLABEL visualization
   - Static map objects uids (roads, sections, lanes) from OpenDRIVE
@@ -17,9 +17,23 @@ Converter utilities to export OmegaPRIME recordings into ASAM OpenLABEL (VCD) fo
 ## Dependencies
 - Language: Python >= 3.9
 - Libraries: `vcd`, `omega-prime`
-- 
-## Installation
 
+## Project Structure
+```
+├── README.md
+├── pyproject.toml              # Project metadata and entry points
+├── LICENSE                     # CC BY-NC-SA 4.0 License file
+├── assets/                     # Logos and images for documentation
+├── weblabel_config/            # Misc files and readme for WebLABEL visualization
+├── src/
+│   └── omega_to_openlabel/
+│       ├── __init__.py
+│       ├── cli.py              # Command-line interface
+│       └── converter.py        # Main conversion logic
+└── tests/                      # Unit and integration tests
+```
+
+## Installation
 ### 1. Prerequisites
 Install vcd and omega-prime libraries:
 ```bash
@@ -66,20 +80,7 @@ converter = Omega2Openlabel(recording, config)
 converter.convert(add_relations=True)
 ```
 
-## Project Structure
-```
-├── README.md
-├── pyproject.toml              # Project metadata and entry points
-├── LICENSE                     # CC BY-NC-SA 4.0 License file
-├── assets/                     # Logos and images for documentation
-├── weblabel_config/            # Misc files and readme for WebLABEL visualization
-├── src/
-│   └── omega_to_openlabel/
-│       ├── __init__.py
-│       ├── cli.py              # Command-line interface
-│       └── converter.py        # Main conversion logic
-└── tests/                      # Unit and integration tests
-```
+
 
 ## Acknowledgements
 ![synergies.svg](assets/synergies.svg)
