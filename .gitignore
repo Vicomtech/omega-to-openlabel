@@ -1,0 +1,6 @@
+src/omega_to_openlabel.egg*
+tests/tmp
+tests/*.json
+data/
+.idea/
+*pyc
