@@ -61,6 +61,7 @@ omega-to-openlabel --input path/to/recording --output output.json --scene-name m
 - `--scene-name`, `-s`: Name of the scene (default: `omega_scene`).
 - `--add-relations`: Include lane relations and object-lane relations (default: `False`). Setting it to true makes the conversion process significantly slower, only set to true if the OpenLABEL files are going to be used as input for the scenario extraction tool of the SYNERGIES project.
 - `--pretty`: Save the output JSON with indentation.
+- `--apply-projections`: Apply OpenDRIVE map projection to the dynamic data (default: `False`). Ensure the OpenDRIVE in the mcap file has the necessary projection information for accurate conversion.
 - `--verbose`, `-v`: Enable verbose logging.
 
 ### Python usage
@@ -76,7 +77,8 @@ recording = omega_prime.Recording.from_file("path/to/recording")
 config = ConverterConfig(
     openlabel_output_path="output.json",
     scene_name="my_scene",
-    save_pretty=True
+    save_pretty=True,
+    apply_projections=False
 )
 converter = Omega2Openlabel(recording, config)
 converter.convert(add_relations=True)
