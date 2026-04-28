@@ -46,6 +46,11 @@ def main():
         help="Include lane relations and object-lane relations."
     )
     parser.add_argument(
+        "--apply-projections",
+        action="store_true",
+        help="Apply OpenDRIVE map projection to the dynamic data."
+    )
+    parser.add_argument(
         "--verbose", "-v", 
         action="store_true",
         help="Enable verbose logging."
@@ -75,7 +80,8 @@ def main():
         config = ConverterConfig(
             openlabel_output_path=args.output,
             scene_name=args.scene_name,
-            save_pretty=args.pretty
+            save_pretty=args.pretty,
+            apply_projections=args.apply_projections
         )
 
         converter = Omega2Openlabel(recording, config)

@@ -18,6 +18,7 @@ class ConverterConfig:
     openlabel_output_path: str
     scene_name: str
     save_pretty: bool = False
+    apply_projections: bool = False
 
 
 class Omega2Openlabel:
@@ -26,6 +27,11 @@ class Omega2Openlabel:
     def __init__(self, recording: omega_prime.Recording, config: ConverterConfig):
         self.r = recording
         self.config = config
+        if self.config.apply_projections:
+            try:
+                self.r.apply_projections()
+            except Exception as e:
+                print("Failed to apply projections: ", e)
         self.openlabel = core.OpenLABEL()
 
         # Initialize basic metadata
@@ -173,7 +179,11 @@ class Omega2Openlabel:
 
         for obj_uid, mv in self.r.moving_objects.items():
             relations = {}
-            sts = locator.locate_mv(mv)
+            try:
+                sts = locator.locate_mv(mv)
+            except Exception as e:
+                print(e)
+                continue
 
             for i, loc in enumerate(sts.roadlane_id.data):
                 frame_n = self.r.nanos2frame.get(math.trunc(mv.nanos[i]))
