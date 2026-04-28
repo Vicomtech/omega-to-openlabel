@@ -9,6 +9,7 @@ import omega_prime
 import vcd.core as core
 import vcd.types as types
 import vcd.utils as vcd_utils
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +149,7 @@ class Omega2Openlabel:
 
     def _add_dynamic_data(self) -> None:
         """Adds kinematics and bounding boxes for moving objects over time."""
-        for uid, obj in self.r.moving_objects.items():
+        for uid, obj in tqdm(self.r.moving_objects.items(), desc="Processing Dynamic Data", leave=True):
             for i, nanos in enumerate(obj.nanos):
                 # Safely handle missing frames
                 frame_n = self.r.nanos2frame.get(math.trunc(nanos))
@@ -174,10 +175,10 @@ class Omega2Openlabel:
         if not map_dict:
             logger.warning("Map dictionary is empty. Cannot process located relations.")
             return
-
+        print("Loading omega locator, this may take a while for complex maps")
         locator = omega_prime.Locator.from_map(self.r.map)
 
-        for obj_uid, mv in self.r.moving_objects.items():
+        for obj_uid, mv in tqdm(self.r.moving_objects.items(), desc="Adding located relations", leave=True):
             relations = {}
             try:
                 sts = locator.locate_mv(mv)
